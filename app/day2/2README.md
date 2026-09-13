@@ -1,6 +1,6 @@
 # Day 2
 ## 虛擬滾動
-https://medium.com/big-hole/virtual-scroll-table-d19cd0c981c3
+https://blog.openreplay.com/virtual-scrolling-high-performance-interfaces/
 
 虛擬滾動的 DOM 結構通常可以拆解為巢狀的三層容器，每一層各自負責不同的視覺與計算職責：
 
@@ -27,3 +27,9 @@ https://medium.com/big-hole/virtual-scroll-table-d19cd0c981c3
 * **計算結束索引**：以起始索引為基準，加上可視區容量與緩衝區數量，決定這批要渲染到哪一個陣列索引為止。
 * **動態切片（Slice）資料**：利用 JavaScript 的 `.slice(startIndex, endIndex)`，從龐大的資料庫或陣列中，每次只抓取畫面看得見的那一小段（例如十萬分之十）轉譯成真實 DOM。
 * **計算位移量與絕對定位**：透過 `transform: translateY(offsetY)`，將這一小包實際渲染的 DOM 區塊即時推到正確的絕對像素位置，讓視覺上維持流暢的連續滾動感。
+
+## 使用 useMemo 優化虛擬滾動
+有學過中階 React 技術的，都知道 `useMemo` 主要用於快取計算結果（Memoization）以節省運算資源，當我們在虛擬滾動中使用useMemo，可以大幅
+避免每次元件重新渲染時，都重複執行高成本的數學運算或陣列方法（例如大型陣列的 `.slice()`）。
+
+* **相依性陣列的影響**：透過監聽 `[scrollTop, items, itemHeight, windowHeight]` ，當使用者上下捲動時，只有 `scrollTop` 會變動，此時 `useMemo` 會觸發重新計算；若其他無關的狀態改變導致父層 re-render，只要這四個值沒變，`useMemo` 就會直接回傳快取值，省去重複切割陣列的開銷。
