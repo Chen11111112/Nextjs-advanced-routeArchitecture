@@ -1,4 +1,5 @@
 // 父層，負責從後端拿資料
+import { listItems, createItem } from "@/app/day3/actions/items";
 import ItemCard from "@/app/day3/components/Child";
 import styles from "@/app/day3/page.module.scss";
 

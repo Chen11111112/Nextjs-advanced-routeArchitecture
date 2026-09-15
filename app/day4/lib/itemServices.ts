@@ -23,18 +23,14 @@ function mapRow(row: ItemRow): Item {
   };
 }
 
-export async function a(): Promise<Item[]> {
+export async function getAll(): Promise<Item[]> {
   const [rows] = await pool.query<ItemRow[]>(
     "SELECT id, title, done, created_at FROM items ORDER BY id ASC"
   );
   return rows.map(mapRow);
 }
-export const getAll = async () => {
-  const [rows] = await pool.query<ItemRow[]>(
-    "SELECT id, title, done, created_at FROM items ORDER BY id ASC"
-  );
-  return rows.map(mapRow);
-}
+
+
 
 export async function getById(id: number): Promise<Item | null> {
   const [rows] = await pool.execute<ItemRow[]>(
