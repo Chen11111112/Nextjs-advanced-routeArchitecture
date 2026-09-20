@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: dark;
+}
+
+@theme {
+  --font-sans: var(--font-noto-sans-tc), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+@keyframes template-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.template-enter {
+  animation: template-enter 220ms ease-out;
+}

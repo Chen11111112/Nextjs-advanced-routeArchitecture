@@ -1,55 +1,57 @@
-// page.tsx
 import Link from 'next/link';
-import styles from './page.module.scss';
+import type { Metadata } from 'next';
 
-export default function Home() {
-  const totalDays = Array.from({ length: 30 }, (_, i) => i + 1);
+export const metadata: Metadata = {
+  title: '架構總覽',
+  description: 'Next.js App Router 特殊檔案慣例、平行路由、攔截路由與 SEO 動態檔案的實戰入口。',
+};
+
+const highlights = [
+  {
+    href: '/dashboard',
+    title: '平行路由',
+    description: '以 `@sidebar` 與 `@analytics` 同時渲染側邊欄與分析面板，並可獨立切換分頁。',
+  },
+  {
+    href: '/gallery',
+    title: '攔截路由',
+    description: '相簿以 `(.)`、`(..)`、`(...)` 在同級或跨級覆寫載入模態框，重新整理則進入完整頁。',
+  },
+  {
+    href: '/login',
+    title: '特殊檔案慣例',
+    description: '全站配置 `layout`、`template`、`error`、`loading`、`not-found` 與動態 SEO 檔案。',
+  },
+] as const;
+
+export default function HomePage() {
   return (
-    <main className={styles.container}>
-      <div className={styles.hero}>
-        <span className={styles.badge}>教學專案</span>
-        <h1 className={styles.title}>Next.js 全端實戰訓練</h1>
-        <p className={styles.description}>
-          你好！歡迎來到本教學專案！
-          本專案聚焦於 <strong>Next.js App Router</strong> 與 <strong>Server Actions</strong> 等全端核心實現（跳過基礎的 React 語法）。
+    <main className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-3xl text-center">
+        <p className="mb-4 inline-flex rounded-full bg-blue-500 px-3 py-1 text-xs font-semibold tracking-wide text-white">
+          App Router
         </p>
-        <div className={styles.actions}>
-          <Link href="https://hyc.eshachem.com/" target="_blank" className={styles.githubBtn}>
-            我的網站
-          </Link>
-          <Link href="https://eminent-glider-8c3.notion.site/Next-js-93b94cbf6abf4675a28850821a725f7b" target="_blank" className={styles.githubBtn}>
-            基礎 React
-          </Link>
-          <Link href="https://github.com/你的帳號/你的專案庫" target="_blank" className={styles.githubBtn}>
-            前往 GitHub 專案庫
-          </Link>
-        </div>
+        <h1 className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl">
+          Next.js 全端實戰訓練
+        </h1>
+        <p className="mt-6 text-lg leading-8 text-slate-400">
+          這個專案展示官方建議的 Root Layout、特殊檔案慣例、平行與攔截路由，以及 `sitemap.ts` 與
+          `robots.ts` 的 SEO 動態產生。
+        </p>
+      </section>
 
-        <div className={styles.features}>
-          <div className={styles.card}>
-            <h3>📁 學習方式</h3>
-            <p>透過專案中的各個 <code>dayx</code> 資料夾進行學習。每個資料夾皆附有專屬的 README，詳細說明該單元的實作內容與重點。</p>
-            我故意用 <strong>Day</strong> 而非 Chapter 命名，
-            希望大家能維持「一天專心學一種技術」的節奏穩扎穩打。
-          </div>
-          <div className={styles.card}>
-            <h3>🚀 技術核心</h3>
-            <p>深入探討現代 Next.js 全端開發架構，包含 Server Component、Client Component 協作與 Server Actions 資料互動。</p>
-          </div>
-        </div>
-        <div className={styles.navigationSection}>
-          <h2 className={styles.navTitle}>選擇你的學習天數 (Day)</h2>
-          <div className={styles.buttonGrid}>
-            {totalDays.map((day) => (
-              <Link key={day} href={`/day${day}`} className={styles.dayButton}>
-                Day {day}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        
-      </div>
+      <section className="mt-14 grid gap-4 md:grid-cols-3">
+        {highlights.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left transition hover:-translate-y-1 hover:border-slate-600"
+          >
+            <h2 className="text-lg font-semibold text-slate-100">{item.title}</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-400">{item.description}</p>
+          </Link>
+        ))}
+      </section>
     </main>
   );
 }
