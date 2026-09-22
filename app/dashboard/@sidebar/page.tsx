@@ -4,7 +4,6 @@ const links = [
   { href: '/dashboard', label: '總覽' },
   { href: '/dashboard/visitors', label: '訪客' },
   { href: '/dashboard/page-views', label: '瀏覽量' },
-  { href: '/gallery', label: '前往相簿' },
 ] as const;
 
 export default function SidebarSlot() {

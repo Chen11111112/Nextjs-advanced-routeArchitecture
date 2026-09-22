@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { ErrorTriggers } from '@/components/error-triggers';
 
 export const metadata: Metadata = {
   title: '架構總覽',
@@ -52,6 +53,10 @@ export default function HomePage() {
           </Link>
         ))}
       </section>
+
+      <div className="mx-auto mt-10 max-w-3xl">
+        <ErrorTriggers />
+      </div>
     </main>
   );
 }

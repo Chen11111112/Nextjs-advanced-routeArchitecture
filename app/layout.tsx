@@ -1,22 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, Noto_Sans_TC } from 'next/font/google';
-import { SiteFooter } from '@/components/site-footer';
-import { SiteHeader } from '@/components/site-header';
+import { DemoErrorProvider } from '@/components/layout/demo-error-provider';
+import { SiteFooter } from '@/components/layout/site-footer';
+import { SiteHeader } from '@/components/layout/site-header';
+import { geistSans, notoSansTC } from '@/components/layout/fonts';
 import { siteConfig } from '@/lib/site-config';
 import './globals.css';
-
-const geistSans = Geist({
-  subsets: ['latin'],
-  variable: '--font-geist-sans',
-  display: 'swap',
-});
-
-const notoSansTC = Noto_Sans_TC({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-noto-sans-tc',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -64,9 +52,11 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant" className={`${geistSans.variable} ${notoSansTC.variable} scroll-smooth`}>
       <body className={`${notoSansTC.className} flex min-h-screen flex-col bg-slate-950 text-slate-100 antialiased`}>
-        <SiteHeader />
-        <div className="flex-1">{children}</div>
-        <SiteFooter />
+        <DemoErrorProvider>
+          <SiteHeader />
+          <div className="flex-1">{children}</div>
+          <SiteFooter />
+        </DemoErrorProvider>
       </body>
     </html>
   );

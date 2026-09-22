@@ -1,13 +1,7 @@
 'use client';
 
-import { Noto_Sans_TC } from 'next/font/google';
+import { notoSansTC } from '@/components/layout/fonts';
 import './globals.css';
-
-const notoSansTC = Noto_Sans_TC({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
-});
 
 export default function GlobalError({
   error,
